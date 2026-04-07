@@ -41,7 +41,12 @@
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6892179169063217"
-     crossorigin="anonymous"></script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     crossorigin="anonymous"></script>
+    
+    <!-- Ad Script -->
+    <script async src="https://aj1047.online/194c03ba.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #007AFF;
@@ -178,6 +183,12 @@
 
         .content p {
             margin-bottom: 20px;
+        }
+        
+        .ad-container {
+            margin: 30px 0;
+            text-align: center;
+            min-height: 100px;
         }
 
         .font-controls {
@@ -420,11 +431,52 @@
         <div class="container">
             <h1 class="chapter-title">{{ chapter.title if chapter.title else 'Chapter ' + chapter.number|string }}</h1>
             <div class="content font-medium">
-                {% for paragraph in chapter.content.split('\n') %}
-                {% if paragraph.strip() %}
-                <p>{{ paragraph.strip() }}</p>
-                {% endif %}
-                {% endfor %}
+                {%- set all_paragraphs = chapter.content.split('\n') -%}
+                {%- set paragraphs = [] -%}
+                {%- for p in all_paragraphs -%}
+                    {%- if p.strip() -%}
+                        {%- set _ = paragraphs.append(p.strip()) -%}
+                    {%- endif -%}
+                {%- endfor -%}
+                {%- set total_paragraphs = paragraphs | length -%}
+                {%- if total_paragraphs > 0 -%}
+                    {%- set ad_position_1 = (total_paragraphs * 0.2) | int -%}
+                    {%- set ad_position_2 = (total_paragraphs * 0.4) | int -%}
+                    {%- set ad_position_3 = (total_paragraphs * 0.6) | int -%}
+                    {%- set ad_position_4 = (total_paragraphs * 0.8) | int -%}
+                {%- endif -%}
+                
+                {%- for paragraph in paragraphs %}
+                <p>{{ paragraph }}</p>
+                
+                {%- if loop.index == ad_position_1 %}
+                <!-- Ad Position 1 -->
+                <div class="ad-container">
+                    <ins class="3b35b82f" data-key="51f6293d5a494afa3b4ae94ff15bd7a0"></ins>
+                </div>
+                {%- endif %}
+                
+                {%- if loop.index == ad_position_2 %}
+                <!-- Ad Position 2 -->
+                <div class="ad-container">
+                    <ins class="3b35b82f" data-key="65c862dc2a0e4de91bcf8edaab6d4e6d"></ins>
+                </div>
+                {%- endif %}
+                
+                {%- if loop.index == ad_position_3 %}
+                <!-- Ad Position 3 -->
+                <div class="ad-container">
+                    <ins class="3b35b82f" data-key="58aff17630ce0ea0ad63a41133910e4c"></ins>
+                </div>
+                {%- endif %}
+                
+                {%- if loop.index == ad_position_4 %}
+                <!-- Ad Position 4 -->
+                <div class="ad-container">
+                    <ins class="3b35b82f" data-key="daeb6053878652d8419ed40ceda23720"></ins>
+                </div>
+                {%- endif %}
+                {%- endfor %}
             </div>
             
             <div class="font-controls">
